@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Log Anomaly Detection</title>
+<style>
+body {
+    background: linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+    font-family: Arial;
+    color: white;
+    text-align: center;
+}
+.container {
+    background: rgba(255,255,255,0.1);
+    padding: 25px;
+    width: 70%;
+    margin: auto;
+    margin-top: 40px;
+    border-radius: 15px;
+}
+input {
+    width: 80%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+}
+button {
+    padding: 12px 25px;
+    border-radius: 8px;
+    background: #00ffcc;
+    border: none;
+    font-weight: bold;
+}
+.card {
+    background: rgba(0,0,0,0.4);
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+}
+pre {
+    text-align: left;
+    white-space: pre-wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+</style>
+</head>
+
+<body>
+<h1>AI-Based Log & Network Anomaly Detection</h1>
+
+<div class="container">
+<input type="text" id="urlInput" placeholder="Enter URL">
+<br><br>
+<button onclick="scan()">Run Security Scan</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+async function scan() {
+    const url = document.getElementById("urlInput").value;
+
+    const res = await fetch("http://127.0.0.1:8000/analyze-url", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({url})
+    });
+
+    const data = await res.json();
+
+    document.getElementById("result").innerHTML = `
+    <div class="card">Errors: ${data.errors}</div>
+    <div class="card">Warnings: ${data.warnings}</div>
+    <div class="card">Critical: ${data.critical}</div>
+    <div class="card">Failed Logins: ${data.failed_logins}</div>
+    <div class="card">Risk Score: ${data.risk_score}</div>
+    <div class="card">Risk Level: ${data.risk_level}</div>
+    <div class="card">
+      <h3>Fetched Content</h3>
+      <pre>${data.content}</pre>
+    </div>
+    `;
+}
+</script>
+</body>
+</html>

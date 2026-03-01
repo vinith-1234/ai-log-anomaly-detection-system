@@ -1,0 +1,6 @@
+2026-03-01 10:21:33 INFO User login success
+2026-03-01 10:22:11 ERROR Failed password attempt
+2026-03-01 10:22:12 ERROR Failed password attempt
+2026-03-01 10:25:40 WARNING Unusual traffic spike
+2026-03-01 10:26:00 ERROR Failed password attempt
+2026-03-01 10:40:01 CRITICAL Possible intrusion detected
